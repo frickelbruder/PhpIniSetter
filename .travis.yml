@@ -18,3 +18,5 @@ deploy:
   provider: releases
   file: change_ini_setting.phar
   skip_cleanup: true
+  on:
+    tags: true
