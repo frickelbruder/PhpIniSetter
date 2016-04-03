@@ -1,0 +1,17 @@
+{
+  "name": "frickelbruder/PhpIniSetter",
+  "description": "A tool to adjust php.ini settings",
+  "minimum-stability": "stable",
+  "bin": [
+    "change_ini_setting"
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^4.8"
+  },
+  "autoload": {
+    "classmap": [ "src/"]
+  },
+  "autoload-dev": {
+    "classmap": [ "tests/"]
+  }
+}

@@ -5,19 +5,26 @@ class ChangeIniSetting {
 
   private $filePath = '';
 
-  public function __construct($filePath) {
+  public function __construct($filePath = '') {
     $this->filePath = $filePath;
   }
+
+  /**
+   * @param string $filePath
+   */
+  public function setFilePath($filePath) {
+    $this->filePath = $filePath;
+  }
+
 
   public function updateSetting($name, $value) {
     $iniContent = file_get_contents($this->filePath);
 
-    $newString = $name . ' = ' . $value;
-
-    $afterIniContent = $this->buildNewIniString($name, $iniContent, $newString);
+    $afterIniContent = $this->updateIniString($name, $value, $iniContent);
 
     $this->saveNewIniFile($afterIniContent);
   }
+
 
   /**
    * @param $afterIniContent
@@ -41,18 +48,19 @@ class ChangeIniSetting {
 
   /**
    * @param $name
+   * @param $value
    * @param $iniContent
-   * @param $newString
    *
    * @return string
    */
-  private function buildNewIniString($name, $iniContent, $newString) {
+  public function updateIniString($name, $value, $iniContent) {
+    $newString = $name . ' = ' . $value;
     $beforeValue = $this->getBeforeValue($iniContent, $name);
     if (is_null($beforeValue)) {
       $afterIniContent = $iniContent . "\n" . $newString;
     }
     else {
-      $pattern = '/' . preg_quote($name, '/') . '\s*=\s*(?:"\')?' . preg_quote($beforeValue, '/') . '(?:"\')?/';
+      $pattern = '/' . preg_quote($name, '/') . '\s*=\s*["\']?' . preg_quote($beforeValue, '/') . '["\']?/';
       $afterIniContent = preg_replace($pattern, $newString, $iniContent);
     }
     return $afterIniContent;
@@ -60,9 +68,3 @@ class ChangeIniSetting {
 
 
 }
-
-$opts = getopt("", array("file:", "name:", "value:"));
-
-$changer = new ChangeIniSetting($opts["file"]);
-$changer->updateSetting($opts["name"], $opts["value"]);
-
