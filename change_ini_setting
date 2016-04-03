@@ -11,6 +11,26 @@ use ChangeIniSetting\ChangeIniSetting;
 
 $opts = getopt("", array("file:", "name:", "value:"));
 
-$changer = new ChangeIniSetting($opts["file"]);
-$changer->updateSetting($opts["name"], $opts["value"]);
+if(count($opts) != 3) {
+  showusage();
+  exit();
+}
+foreach($opts as $opt) {
+  if(empty($opt)) {
+    showusage();
+    exit();
+  }
+}
+try {
+  $changer = new ChangeIniSetting();
+  $changer->setFilePath($opts["file"]);
+  $changer->updateSetting($opts["name"], $opts["value"]);
+} catch(Exception $e) {
+  echo $e->getMessage() . "\n";
+  exit();
+}
+
+function showUsage() {
+  echo 'Usage: sudo bin/change_ini_setting --name $settingToChange --value $valueToSetTheValueTo --file $pathToIniFile'."\n";
+}
 ?>

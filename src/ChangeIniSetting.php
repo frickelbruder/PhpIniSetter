@@ -5,14 +5,19 @@ class ChangeIniSetting {
 
   private $filePath = '';
 
-  public function __construct($filePath = '') {
-    $this->filePath = $filePath;
-  }
-
   /**
    * @param string $filePath
+   *
+   * @throws \Exception
    */
   public function setFilePath($filePath) {
+
+    if(!file_exists($filePath)) {
+      throw new \Exception("'$filePath' does not exists.");
+    }
+    if(!is_writable($filePath)) {
+      throw new \Exception("'$filePath' is not writable and thus can not be updated.");
+    }
     $this->filePath = $filePath;
   }
 
