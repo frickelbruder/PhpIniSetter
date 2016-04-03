@@ -19,6 +19,7 @@ before_deploy:
     - php box.phar build
 
 deploy:
+    api_key: {{OAUTH_TOKEN}}
     provider: releases
     file: "change_ini_setting.phar"
     skip_cleanup: true
