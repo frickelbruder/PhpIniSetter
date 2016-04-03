@@ -1,4 +1,5 @@
 {
+  "alias": "php-ini-setter.phar",
   "chmod": "0755",
   "directories": [
     "src",
@@ -7,8 +8,8 @@
   "files": [
     "README.md"
   ],
-  "git-version": "1.0.0",
-  "main": "bin/change_ini_setting",
-  "output": "change_ini_setting.phar",
+  "git-version": "package_version",
+  "main": "bin/php-ini-setter",
+  "output": "php-ini-setter.phar",
   "stub": true
 }
