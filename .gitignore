@@ -1,0 +1,8 @@
+/build
+/change_ini_setting.phar
+/Vagrantfile
+/composer.phar
+/composer.lock
+/.gitignore
+/.vagrant
+
