@@ -31,6 +31,6 @@ try {
 }
 
 function showUsage() {
-  echo 'Usage: sudo bin/change_ini_setting --name $settingToChange --value $valueToSetTheValueTo --file $pathToIniFile'."\n";
+  echo 'Usage: sudo change_ini_setting.phar --name $settingToChange --value $valueToSetTheValueTo --file $pathToIniFile'."\n";
 }
 ?>

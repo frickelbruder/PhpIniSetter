@@ -1,0 +1,13 @@
+{
+  "chmod": "0755",
+  "directories": [
+    "src"
+  ],
+  "files": [
+    "README.md"
+  ],
+  "git-version": "1.0.0",
+  "main": "bin/change_ini_setting",
+  "output": "change_ini_setting.phar",
+  "stub": true
+}
