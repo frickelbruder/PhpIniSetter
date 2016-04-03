@@ -5,6 +5,10 @@ This tool is useful in an CI/CD environment to adjust the ini-settings according
 
 ##Installation
 
+###Phar
+Simply donwload the latest release at https://github.com/frickelbruder/php-ini-setter/releases
+
+###Composer
 ```
 php composer.phar global require "frickelbruder/php-ini-setter":"dev-master"
 ```
