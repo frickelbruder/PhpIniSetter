@@ -1,5 +1,5 @@
 {
-  "name": "frickelbruder/PhpIniSetter",
+  "name": "frickelbruder/php-ini-setter",
   "description": "A tool to adjust php.ini settings",
   "minimum-stability": "stable",
   "bin": [
