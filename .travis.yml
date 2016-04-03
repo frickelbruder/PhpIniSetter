@@ -15,7 +15,7 @@ script: phpunit
 
 before_deploy:
     - curl -LSs https://box-project.github.io/box2/installer.php | php
-    - box build
+    - box.phar build
 
 deploy:
     provider: releases
