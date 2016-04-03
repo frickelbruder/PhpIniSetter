@@ -15,7 +15,7 @@ php composer.phar global require "frickelbruder/php-ini-setter":"dev-master"
 
 ##Usage
 ```
-sudo vendor/bin/change_ini_setting --name $settingToChange --value $valueToSetTheValueTo --file $pathToIniFile
+sudo change_ini_setting --name $settingToChange --value $valueToSetTheValueTo --file $pathToIniFile
 ```
 - sudo is required, if your current user is not allowed to write to the ini file.
 - vendor/bin/ is the path to your composer bin directory.
