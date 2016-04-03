@@ -16,7 +16,7 @@ script: phpunit
 before_deploy:
     - echo "phar.readonly = Off" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - curl -LSs https://box-project.github.io/box2/installer.php | php
-    - box.phar build
+    - php box.phar build
 
 deploy:
     provider: releases
