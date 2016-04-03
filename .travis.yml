@@ -5,13 +5,20 @@ php:
     - 5.5
     - 5.4
 
-before_script:
+before_install:
     - travis_retry composer self-update
-    - composer install
+
+install:
+    - travis_retry composer install --no-dev --no-interaction
 
 script: phpunit
 
 before_deploy:
     - curl -LSs https://box-project.github.io/box2/installer.php | php
     - box build
+
+deploy:
+    provider: releases
+    file: "change_ini_setting.phar"
+    skip_cleanup: true
 
