@@ -1,4 +1,4 @@
-# Php-Ini-Setter
+# Php-Ini-Setter ![As always: Travis is green](https://travis-ci.org/frickelbruder/php-ini-setter.svg)
 Add or update php.ini settings from the command line.
 
 This tool is useful in an CI/CD environment to adjust the ini-settings according to your needs
