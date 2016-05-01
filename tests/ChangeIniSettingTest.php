@@ -15,6 +15,7 @@ class ChangeIniSettingTest extends \PHPUnit_Framework_TestCase {
   private $iniContent = '';
 
   public function __construct() {
+      parent::__construct();
     $this->defaultTestFile = __DIR__ . '/' . $this->defaultTestFile;
   }
 
@@ -71,4 +72,77 @@ class ChangeIniSettingTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($iniResult["variable1"], "testvalue1");
   }
 
+    public function testUpdateIniStringWithOffValue() {
+        $iniContent = "variable1 = Off";
+        $variableToUpdate = "variable1";
+        $updatedValue = "On";
+
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $iniResult = parse_ini_string($result);
+        $this->assertEquals($iniResult[$variableToUpdate], "1");
+    }
+
+    public function testUpdateIniStringWithEmptyValue() {
+        $iniContent = "variable1 = ";
+        $variableToUpdate = "variable1";
+        $updatedValue = "On";
+
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $iniResult = parse_ini_string($result);
+        $this->assertEquals($iniResult[$variableToUpdate], "1");
+    }
+
+    public function testUpdateIniStringWithNoValue() {
+        $iniContent = "variable1 = No";
+        $variableToUpdate = "variable1";
+        $updatedValue = "On";
+
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $iniResult = parse_ini_string($result);
+        $this->assertEquals($iniResult[$variableToUpdate], "1");
+    }
+
+    public function testUpdateIniStringWithOnValue() {
+        $iniContent = "variable1 = On";
+        $variableToUpdate = "variable1";
+        $updatedValue = "Off";
+
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $iniResult = parse_ini_string($result);
+        $this->assertEquals($iniResult[$variableToUpdate], "");
+    }
+
+    public function testUpdateIniStringWithYesValue() {
+        $iniContent = "variable1 = Yes";
+        $variableToUpdate = "variable1";
+        $updatedValue = "Off";
+
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $iniResult = parse_ini_string($result);
+        $this->assertEquals($iniResult[$variableToUpdate], "");
+    }
+
+    public function testUpdateIniStringRecognizesAndUpdatesYesValue() {
+        $iniContent = "variable1 = Yes";
+        $variableToUpdate = "variable1";
+        $updatedValue = "Off";
+
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $this->assertEquals($result, "variable1 = Off");
+    }
+    public function testUpdateIniStringRecognizesAndUpdatesCaseInsensitivYesValue() {
+        $iniContent = "variable1 = yEs";
+        $variableToUpdate = "variable1";
+        $updatedValue = "Off";
+
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $this->assertEquals($result, "variable1 = Off");
+    }
 }

@@ -65,11 +65,22 @@ class ChangeIniSetting {
       $afterIniContent = $iniContent . "\n" . $newString;
     }
     else {
-      $pattern = '/' . preg_quote($name, '/') . '\s*=\s*["\']?' . preg_quote($beforeValue, '/') . '["\']?/';
+        $preparedBeforeValue = $this->prepareBeforeValueToUpdate($beforeValue);
+      $pattern = '/' . preg_quote($name, '/') . '\s*=\s*["\']?' . $preparedBeforeValue . '["\']?/';
       $afterIniContent = preg_replace($pattern, $newString, $iniContent);
     }
     return $afterIniContent;
   }
+
+    private function prepareBeforeValueToUpdate($value) {
+        if($value === "1") {
+            return '(?i:On|true|1|yes)';
+        }
+        if($value === "") {
+            return '(?i:Off|false|0|no|none|$)';
+        }
+        return preg_quote($value, '/');
+    }
 
 
 }
