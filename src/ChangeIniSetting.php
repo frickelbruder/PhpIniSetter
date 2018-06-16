@@ -5,6 +5,10 @@ class ChangeIniSetting {
 
   private $filePath = '';
 
+  private $debug = false;
+
+  private $debugMessages = array();
+
   /**
    * @param string $filePath
    *
@@ -61,25 +65,45 @@ class ChangeIniSetting {
   public function updateIniString($name, $value, $iniContent) {
     $newString = $name . ' = ' . $value;
     $beforeValue = $this->getBeforeValue($iniContent, $name);
+    $this->debug("Initial value for " . $name . ": " . $beforeValue);
     if (is_null($beforeValue)) {
       $afterIniContent = $iniContent . "\n" . $newString;
     }
     else {
-        $preparedBeforeValue = $this->prepareBeforeValueToUpdate($beforeValue);
+      $preparedBeforeValue = $this->prepareBeforeValueToUpdate($beforeValue);
       $pattern = '/' . preg_quote($name, '/') . '\s*=\s*["\']?' . $preparedBeforeValue . '["\']?/';
-      $afterIniContent = preg_replace($pattern, $newString, $iniContent);
+      $this->debug("Replace pattern : " . $pattern);
+
+      $count = 0;
+      $afterIniContent = preg_replace($pattern, $newString, $iniContent, -1, $count);
+      $this->debug("Replaced patterns : " . $count);
     }
     return $afterIniContent;
   }
 
     private function prepareBeforeValueToUpdate($value) {
-        if($value === "1") {
-            return '(?i:On|true|1|yes)';
-        }
-        if($value === "") {
-            return '(?i:Off|false|0|no|none|$)';
-        }
-        return preg_quote($value, '/');
+      if($value === "1") {
+        return '(?i:On|true|1|yes)';
+      }
+      if($value === "") {
+        return '(?i:Off|false|0|no|none|$)';
+      }
+      return preg_quote($value, '/');
+    }
+
+    public function setDebugMode($mode = false) {
+      $this->debug = $mode;
+    }
+
+    private function debug($string) {
+      if($this->debug == false) {
+          return;
+      }
+      $this->debugMessages[] = $string;
+    }
+
+    public function getDebugMessages() {
+      return $this->debugMessages;
     }
 
 

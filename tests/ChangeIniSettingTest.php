@@ -155,4 +155,28 @@ class ChangeIniSettingTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertEquals($result, "variable1 = Off");
     }
+
+    public function testDebugModeOnReturnsMessages() {
+        $iniContent = "variable1 = yEs";
+        $variableToUpdate = "variable1";
+        $updatedValue = "Off";
+
+        $this->TestClass->setDebugMode(true);
+        $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $this->assertTrue(is_array($this->TestClass->getDebugMessages()));
+        $this->assertNotEmpty($this->TestClass->getDebugMessages());
+    }
+
+    public function testDebugModeOffReturnsNoMessages() {
+        $iniContent = "variable1 = yEs";
+        $variableToUpdate = "variable1";
+        $updatedValue = "Off";
+
+        $this->TestClass->setDebugMode(false);
+        $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $this->assertTrue(is_array($this->TestClass->getDebugMessages()));
+        $this->assertEmpty($this->TestClass->getDebugMessages());
+    }
 }

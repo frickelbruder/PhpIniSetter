@@ -9,13 +9,16 @@ foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.p
 
 use ChangeIniSetting\ChangeIniSetting;
 
-$opts = getopt("", array("file:", "name:", "value:"));
+$opts = getopt("", array("file:", "name:", "value:", "debug::"));
 
-if(count($opts) != 3) {
+if(count($opts) < 3) {
   showusage();
   exit();
 }
-foreach($opts as $opt) {
+foreach($opts as $name => $opt) {
+  if($name == 'debug') {
+    continue;
+  }
   if(empty($opt)) {
     showusage();
     exit();
@@ -23,14 +26,18 @@ foreach($opts as $opt) {
 }
 try {
   $changer = new ChangeIniSetting();
+  $changer->setDebugMode(isset($opts['debug']));
   $changer->setFilePath($opts["file"]);
   $changer->updateSetting($opts["name"], $opts["value"]);
+  $messages = $changer->getDebugMessages();
+  echo implode("\n", $messages) . "\n";
+
 } catch(Exception $e) {
   echo $e->getMessage() . "\n";
   exit();
 }
 
 function showUsage() {
-  echo 'Usage: sudo php-ini-setter[.phar]  --name $settingToChange --value $valueToSetTheValueTo --file $pathToIniFile'."\n";
+  echo 'Usage: sudo php-ini-setter[.phar]  --name $settingToChange --value $valueToSetTheValueTo --file $pathToIniFile --debug'."\n";
 }
 ?>
