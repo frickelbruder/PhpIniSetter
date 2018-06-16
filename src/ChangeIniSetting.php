@@ -48,7 +48,7 @@ class ChangeIniSetting {
    * @return string
    */
   private function getBeforeValue($iniContent, $name) {
-    $ini = parse_ini_string($iniContent);
+    $ini = parse_ini_string($iniContent, false, INI_SCANNER_RAW);
     if(array_key_exists($name, $ini)) {
       return $ini[$name];
     }

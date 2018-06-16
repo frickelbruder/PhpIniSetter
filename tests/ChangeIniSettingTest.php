@@ -157,6 +157,16 @@ class ChangeIniSettingTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($result, "variable1 = Off");
     }
 
+    public function testUpdateIniStringDoesReplaceConstants() {
+        $variableToUpdate = "variableWithConstant";
+        $iniContent = $this->iniContent;
+        $updatedValue = "E_ALL";
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $iniResult = parse_ini_string($result);
+        $this->assertEquals(E_ALL, $iniResult[$variableToUpdate]);
+    }
+
     public function testDebugModeOnReturnsMessages() {
         $iniContent = "variable1 = yEs";
         $variableToUpdate = "variable1";
