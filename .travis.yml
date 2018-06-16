@@ -9,7 +9,7 @@ before_install:
 - travis_retry composer self-update
 install:
 - travis_retry composer install --no-interaction
-script: phpunit
+script: ./vendor/bin/phpunit -c ./phpunit.xml
 before_deploy:
 - composer install --no-dev --no-interaction
 - echo "phar.readonly = Off" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
