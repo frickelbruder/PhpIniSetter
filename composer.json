@@ -4,7 +4,7 @@
   "minimum-stability": "stable",
   "license": "MIT",
   "bin": [
-    "php-ini-setter"
+    "bin/php-ini-setter"
   ],
   "require-dev": {
     "phpunit/phpunit": "^4.8"
