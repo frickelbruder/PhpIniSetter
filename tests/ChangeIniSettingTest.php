@@ -20,7 +20,7 @@ class ChangeIniSettingTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function setUp() {
-    $this->TestClass = new ChangeIniSetting($this->defaultTestFile);
+    $this->TestClass = new ChangeIniSetting();
     $this->iniContent = file_get_contents($this->defaultTestFile);
   }
 
@@ -35,6 +35,16 @@ class ChangeIniSettingTest extends \PHPUnit_Framework_TestCase {
     $iniResult = parse_ini_string($result);
     $this->assertEquals($iniResult[$variableToUpdate], $updatedValue);
   }
+
+    public function testUpdateIniStringDoesNotUpdateComment() {
+        $variableToUpdate = "variableWithComment";
+        $iniContent = $this->iniContent;
+        $updatedValue = "testvalue2";
+        $result = $this->TestClass->updateIniString($variableToUpdate, $updatedValue, $iniContent);
+
+        $iniResult = parse_ini_string($result);
+        $this->assertEquals($iniResult[$variableToUpdate], $updatedValue);
+    }
 
   public function testUpdateIniStringWithQuotedValue() {
     $variableToUpdate = "variable1";
