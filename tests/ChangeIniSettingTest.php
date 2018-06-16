@@ -22,6 +22,7 @@ class ChangeIniSettingTest extends \PHPUnit_Framework_TestCase {
   public function setUp() {
     $this->TestClass = new ChangeIniSetting();
     $this->iniContent = file_get_contents($this->defaultTestFile);
+
   }
 
   public function testUpdateIniString() {
@@ -179,4 +180,5 @@ class ChangeIniSettingTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($this->TestClass->getDebugMessages()));
         $this->assertEmpty($this->TestClass->getDebugMessages());
     }
+
 }

@@ -9,7 +9,7 @@
 
     <testsuites>
         <testsuite name="Core">
-            <file>tests/ChangeIniSettingTest.php</file>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
