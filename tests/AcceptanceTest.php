@@ -51,7 +51,7 @@ class AcceptanceTest extends \PHPUnit_Framework_TestCase
             $this->TestClass->setFilePath($this->defaultTestFile . '__');
             $this->fail('No exception thrown');
         } catch(\Exception $exception) {
-            $this->assertNotInstanceOf(\PHPUnit_Framework_Exception::class, $exception);
+            $this->assertNotInstanceOf('\PHPUnit_Framework_Exception', $exception);
         }
     }
 }
