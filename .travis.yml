@@ -8,9 +8,10 @@ php:
 before_install:
 - travis_retry composer self-update
 install:
-- travis_retry composer install --no-dev --no-interaction
+- travis_retry composer install --no-interaction
 script: phpunit
 before_deploy:
+- composer install --no-dev --no-interaction
 - echo "phar.readonly = Off" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 - curl -LSs https://box-project.github.io/box2/installer.php | php
 - php box.phar build
